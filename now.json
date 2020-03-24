@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "MONGO_CONNECTION_STRING": "@bolyaiwtf-mongo-connection-string"
+    }
+  }
+}

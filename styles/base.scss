@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700&subset=latin-ext');
+@import '~font-awesome/scss/font-awesome';
+@import './colors';
+
+body {
+  margin: 0;
+  background: $background;
+  font-family: 'Playfair Display', serif;
+}
+
+.loading-container {
+  padding: 15px;
+  text-align: center;
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.box {
+  text-align: center;
+  width: 500px;
+  padding: 15px 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  box-shadow: 0 0 2.2em rgba(0, 0, 0, .25);
+  border: 3px solid $base;
+
+  .title {
+    color: $base;
+    &.has-comment {
+      border-bottom: 1px solid $base;
+      padding-bottom: 10px;
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  &.error {
+    border: 3px solid $errored;
+    .title {
+      color: $errored;
+    }
+  }
+
+  @media only screen and ( max-width: 600px ) {
+    border: none;
+    position: static;
+    transform: none;
+    width: auto;
+    box-shadow: 0 0 2.2em rgba(0, 0, 0, .15);
+  }
+}
+
+.more-link {
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  button {
+    border: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    display: inline-block;
+    padding: 8px 25px;
+    color: #fff;
+    font-weight: 600;
+    background: $base;
+    transition: background .2s linear;
+    text-decoration: none;
+    border-radius: 25px;
+    outline: none;
+    cursor: pointer;
+
+    i {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      background: darken($base, 10%);
+    }
+
+    &[disabled] {
+      background: lighten($base, 15%);
+      cursor: not-allowed;
+    }
+  }
+}
