@@ -18,27 +18,28 @@ npm i -g yarn
 yarn
 ```
 
+Create a `config.json` that contains your MongoDB connection string:
+
+```
+cp config.example.json config.json
+vi config.json
+```
+
 ## Starting the Server with Hot Reload
 
 ```
-MONGO_CONNECTION_STRING=your_mongo_connection_string yarn dev
+yarn dev
 ```
 
 ## Building for Production
 
 ```sh
-MONGO_CONNECTION_STRING=your_mongo_connection_string yarn build
+yarn build
 ```
 
 ## Deployment
 
-Deployment can be done using ZEIT Now. Add your connection string to your secrets:
-
-```
-now secrets add bolyaiwtf-mongo-connection-string your_connection_string
-```
-
-And deploy:
+Deployment can be done using ZEIT Now.
 
 ```sh
 now
