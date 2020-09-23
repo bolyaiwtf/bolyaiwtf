@@ -18,7 +18,7 @@ body {
   right: 0;
   bottom: 0;
 
-  img {
+  svg {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -94,11 +94,11 @@ body {
     }
 
     &:hover {
-      background: darken($base, 10%);
+      background: $base-darker;
     }
 
     &[disabled] {
-      background: lighten($base, 15%);
+      background: $base-lighter;
       cursor: not-allowed;
     }
   }

@@ -1,4 +1,7 @@
-$base: #283593;
+$base: hsl(var(--base-h), var(--base-s), var(--base-l));
+$base-darker: hsl(var(--base-h), var(--base-s), calc(var(--base-l) - 10%));
+$base-lighter: hsl(var(--base-h), var(--base-s), calc(var(--base-l) + 15%));
+
 $background: #f9f9f9;
 
 $errored: #d32f2f;

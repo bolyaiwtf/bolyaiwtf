@@ -5,6 +5,7 @@ import Message from '../components/Message';
 import Loading from '../components/Loading';
 
 import fetch from 'isomorphic-unfetch';
+import config from '../config.json';
 
 function fetcher(url) {
   return new Promise((resolve, reject) => {
@@ -46,7 +47,7 @@ export default function Home() {
   return (
     <div className="wrapper">
       <Head>
-        <title>wtf bolyai</title>
+        <title>{config.app.name}</title>
       </Head>
 
       { (data || error) ? <Message

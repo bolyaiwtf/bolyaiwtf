@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "wtf bolyai",
+    "baseColor": "#283593"
+  },
   "mongo": {
     "connectionString": "your MongoDB connection string"
   }
