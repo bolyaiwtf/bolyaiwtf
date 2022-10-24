@@ -9,13 +9,12 @@
   },
   "dependencies": {
     "color-convert": "^2.0.1",
-    "font-awesome": "^4.7.0",
     "isomorphic-unfetch": "^3.0.0",
     "mongoose": "^5.9.6",
     "next": "9.3.2",
-    "node-sass": "^4.13.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "sass": "^1.55.0",
     "swr": "^0.1.18"
   },
   "devDependencies": {

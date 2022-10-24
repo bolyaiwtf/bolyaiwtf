@@ -1,4 +1,4 @@
-import config from '../config.json';
+import config from "../config.json";
 
 export default function LoadingAnimation() {
   return (
@@ -9,7 +9,7 @@ export default function LoadingAnimation() {
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
       className="lds-ripple"
-      style={{ background: 'none' }}
+      style={{ background: "none" }}
     >
       <circle
         cx="50"
@@ -17,7 +17,7 @@ export default function LoadingAnimation() {
         r="49.4159"
         fill="none"
         stroke={config.app.baseColor}
-        stroke-width="4"
+        strokeWidth="4"
       >
         <animate
           attributeName="r"
@@ -46,7 +46,7 @@ export default function LoadingAnimation() {
         r="30.0539"
         fill="none"
         stroke={config.app.baseColor}
-        stroke-width="4"
+        strokeWidth="4"
       >
         <animate
           attributeName="r"

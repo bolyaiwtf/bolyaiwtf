@@ -1,19 +1,20 @@
-import useSWR, { mutate } from 'swr';
+import Head from "next/head";
+import Message from "../components/Message";
+import Loading from "../components/Loading";
 
-import Head from 'next/head';
-import Message from '../components/Message';
-import Loading from '../components/Loading';
+import shuffle from "../lib/shuffle";
 
-import fetch from 'isomorphic-unfetch';
-import config from '../config.json';
+import fetch from "isomorphic-unfetch";
+import config from "../config.json";
+import { useEffect, useRef, useState } from "react";
 
 function fetcher(url) {
   return new Promise((resolve, reject) => {
     return fetch(url)
-      .then(r => r.json())
-      .then(json => {
+      .then((r) => r.json())
+      .then((json) => {
         if (!json.ok) {
-          return reject('Internal Server Error');
+          return reject("Internal Server Error");
         }
 
         return resolve(json);
@@ -23,25 +24,86 @@ function fetcher(url) {
 }
 
 export default function Home() {
-  let { data, error } = useSWR('/api/message', fetcher, {
-    revalidateOnFocus: false,
-    shouldRetryOnError: false
-  });
+  const [messages, setMessages] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeMessage, setActiveMessage] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isErrored, setIsErrored] = useState(false);
 
-  let message = data?.message;
+  const buttonRef = useRef(null);
 
-  if (error) {
-    message = {
-      header: 'Nem sikerült betölteni az üzenetet.',
-      comment: 'Kérlek próbáld újra később.'
-    };
+  function bootstrap() {
+    refreshMessages();
+    registerEventHandlers();
 
-    console.error(error);
+    return destroy;
   }
 
-  function reload() {
-    // workaround for temporarily mutating the data to a null state
-    mutate('/api/message', () => null);
+  function destroy() {
+    unregisterEventHandlers();
+  }
+
+  function registerEventHandlers() {
+    window.addEventListener("keydown", handleKeyDown);
+  }
+
+  function unregisterEventHandlers() {
+    window.removeEventListener("keydown", handleKeyDown);
+  }
+
+  async function refreshMessages() {
+    setLoading(true);
+    setActiveIndex(0);
+    setActiveMessage(null);
+    setMessages(null);
+    setIsErrored(false);
+
+    try {
+      const res = await fetcher("/api/all");
+
+      const shuffledMessages = shuffle(res.messages);
+      setMessages(shuffledMessages);
+    } catch (err) {
+      setActiveMessage({
+        header: "Nem sikerült betölteni az üzenetet.",
+        comment: "Kérlek próbáld újra később.",
+      });
+      setIsErrored(true);
+
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(bootstrap, []);
+
+  useEffect(() => {
+    if (messages) {
+      setActiveMessage(messages[activeIndex]);
+    }
+  }, [activeIndex, messages]);
+
+  function next() {
+    setLoading(true);
+
+    setTimeout(() => {
+      if (activeIndex + 1 < messages.length) {
+        setActiveIndex(activeIndex + 1);
+      } else {
+        setMessages(shuffle(messages));
+        setActiveIndex(0);
+      }
+
+      setLoading(false);
+    }, 200); // lol
+  }
+
+  function handleKeyDown(e) {
+    // enter
+    if (e.keyCode === 13 && buttonRef.current !== null) {
+      buttonRef.current.click();
+    }
   }
 
   return (
@@ -50,17 +112,14 @@ export default function Home() {
         <title>{config.app.name}</title>
       </Head>
 
-      { (data || error) ? <Message
-        message={message}
-        error={!!error}
-      /> : <Loading /> }
+      {loading && <Loading />}
+
+      {!loading && activeMessage && (
+        <Message message={activeMessage} error={isErrored} />
+      )}
 
       <div className="more-link">
-        <button
-          onClick={reload}
-          disabled={!data}
-        >
-          <i className="fa fa-refresh"></i>
+        <button ref={buttonRef} onClick={next} disabled={loading}>
           <span>Kérek még!</span>
         </button>
       </div>

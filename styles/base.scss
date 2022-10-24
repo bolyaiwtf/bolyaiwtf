@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700&subset=latin-ext');
-@import '~font-awesome/scss/font-awesome';
-@import './colors';
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700&subset=latin-ext");
+@import "./colors";
 
 body {
   margin: 0;
   background: $background;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
 }
 
 .loading-container {
@@ -35,7 +34,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fff;
-  box-shadow: 0 0 2.2em rgba(0, 0, 0, .25);
+  box-shadow: 0 0 2.2em rgba(0, 0, 0, 0.25);
   border: 3px solid $base;
 
   .title {
@@ -57,12 +56,12 @@ body {
     }
   }
 
-  @media only screen and ( max-width: 600px ) {
+  @media only screen and (max-width: 600px) {
     border: none;
     position: static;
     transform: none;
     width: auto;
-    box-shadow: 0 0 2.2em rgba(0, 0, 0, .15);
+    box-shadow: 0 0 2.2em rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -76,14 +75,14 @@ body {
 
   button {
     border: 0;
-    font-family: 'Playfair Display', serif;
+    font-family: "Playfair Display", serif;
     font-size: 16px;
     display: inline-block;
     padding: 8px 25px;
     color: #fff;
     font-weight: 600;
     background: $base;
-    transition: background .2s linear;
+    transition: background 0.2s linear;
     text-decoration: none;
     border-radius: 25px;
     outline: none;
